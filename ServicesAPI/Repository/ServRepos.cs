@@ -32,7 +32,7 @@ namespace ServicesAPI.Repository
             }
             else
             {
-                service = new Services() { ServiceType = item.ServiceType, AppointmentTime = item.AppointmentTime, ServiceStatus = item.ServiceStatus, ServiceMessage = item.ServiceMessage, ServicePrice = item.ServicePrice, EmployeeId = item.EmployeeId, ResidentId = item.ResidentId };
+                service = new Services() { ServiceType = item.ServiceType, AppointmentTime = item.AppointmentTime, ServiceStatus = "Requested", ServiceMessage = item.ServiceMessage, ServicePrice = item.ServicePrice, EmployeeId = item.EmployeeId, ResidentId = item.ResidentId };
                 await _context.Services.AddAsync(service);
                 await _context.SaveChangesAsync();
             }

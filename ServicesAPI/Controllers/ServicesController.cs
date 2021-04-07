@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServicesAPI.Models;
+using ServicesAPI.Models.ViewModels;
 using ServicesAPI.Repository;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,13 @@ namespace ServicesAPI.Controllers
             _log4net.Info("Get All Services Was Called !!");
             return _context.GetAllServices();
         }
-        
+        [HttpGet("{id}")]
+        public IEnumerable<ServiceDetails> GetServicesByResidentId(int id)
+        {
+            _log4net.Info("Get Services For Resident With ID " + id + " Was Called !!");
+            var item = _context.GetServiceByResidentId(id);
+            return item;
+        }
         [HttpPost]
         public async Task<IActionResult> PostServices(Services item)
         {

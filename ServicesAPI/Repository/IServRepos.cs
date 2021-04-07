@@ -1,4 +1,5 @@
 ﻿using ServicesAPI.Models;
+using ServicesAPI.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace ServicesAPI.Repository
         Task<Services> UpdateServiceByResident(Services item, int id);
         Task<Services> UpdateServiceByEmployee(Services item, int id);
 
-
+        IEnumerable<ServiceDetails> GetServiceByResidentId(int id);
     }
 }

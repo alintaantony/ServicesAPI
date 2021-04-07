@@ -1,4 +1,6 @@
-﻿using ServicesAPI.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ServicesAPI.Models;
+using ServicesAPI.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,38 @@ namespace ServicesAPI.Repository
         {
             return _context.Services.ToList();
         }
+
+        public IEnumerable<ServiceDetails> GetServiceByResidentId(int id)
+        {
+            List<Services> data= _context.Services.Include(x=>x.Employee).ToList();
+
+            List<ServiceDetails> serviceDetailsList = new List<ServiceDetails>();
+            foreach(var ser in data)
+            {
+                if (ser.ResidentId == id)
+                {
+
+                    ServiceDetails tempservicedetails = new ServiceDetails()
+                    {
+                        ResidentId=id,
+                        ServiceId = ser.ServiceId,
+                        AppointmentTime = ser.AppointmentTime,
+                        ServiceMessage = ser.ServiceMessage,
+                        ServiceStatus = ser.ServiceStatus,
+                        ServicePrice = ser.ServicePrice,
+                        ServiceType = ser.ServiceType,
+                        EmployeeName = ser.Employee.EmployeeName,
+                        EmployeeRating = ser.Employee.EmployeeRating,
+                        EmployeeId = ser.EmployeeId
+                    };
+                    serviceDetailsList.Add(tempservicedetails);
+                }
+            }
+            return serviceDetailsList;
+            
+
+        }
+
         public async Task<Services> PostServices(Services item)
         {
             Services service = null;
@@ -32,7 +66,7 @@ namespace ServicesAPI.Repository
             }
             else
             {
-                service = new Services() { ServiceType = item.ServiceType, AppointmentTime = item.AppointmentTime, ServiceStatus = "Requested", ServiceMessage = item.ServiceMessage, ServicePrice = item.ServicePrice, EmployeeId = item.EmployeeId, ResidentId = item.ResidentId };
+                service = new Services() { ServiceType = item.ServiceType, AppointmentTime = item.AppointmentTime, ServiceStatus = "Requested", ServiceMessage = item.ServiceMessage, ServicePrice = item.ServicePrice, EmployeeId = 1014, ResidentId = item.ResidentId };
                 await _context.Services.AddAsync(service);
                 await _context.SaveChangesAsync();
             }

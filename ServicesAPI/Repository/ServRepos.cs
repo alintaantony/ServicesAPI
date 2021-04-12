@@ -26,6 +26,12 @@ namespace ServicesAPI.Repository
             return _context.Services.ToList();
         }
 
+        public Services GetServiceByServiceId(int id)
+        {
+            var item = _context.Services.Find(id);
+            return item;
+        }
+
         public IEnumerable<ServiceDetails> GetServiceByResidentId(int id)
         {
             List<Services> data= _context.Services.Include(x=>x.Employee).ToList();
@@ -91,6 +97,5 @@ namespace ServicesAPI.Repository
             await _context.SaveChangesAsync();
             return service;
         }
-
     }
 }

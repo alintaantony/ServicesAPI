@@ -27,6 +27,31 @@ namespace ServicesAPI.Controllers
             _log4net.Info("Get All Services Was Called !!");
             return _context.GetAllServices();
         }
+
+        [HttpGet("GetServiceById/{id}")]
+        public IActionResult GetServiceById(int id)
+        {
+            _log4net.Info("Get Service By Id Was Called !!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var service = _context.GetServiceByServiceId(id);
+                _log4net.Info("Service of Id " + id + " Was Called");
+                if (service == null)
+                {
+                    return NotFound();
+                }
+                return Ok(service);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet("{id}")]
         public IEnumerable<ServiceDetails> GetServicesByResidentId(int id)
         {

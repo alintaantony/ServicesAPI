@@ -37,7 +37,9 @@ namespace ServicesAPI.Repository
                     ServicePrice = ser.ServicePrice,
                     ServiceType = ser.ServiceType,
                     ResidentHouseNo=ser.Resident.ResidentHouseNo,
-                    ResidentName=ser.Resident.ResidentName
+                    ResidentName=ser.Resident.ResidentName,
+                    ResidentId=ser.ResidentId
+                    
                 };
                 serviceDetailsList.Add(tempservicedetails);
             }
@@ -112,6 +114,8 @@ namespace ServicesAPI.Repository
             Services service = await _context.Services.FindAsync(id);
             service.ServiceStatus = item.ServiceStatus;
             service.ServicePrice = item.ServicePrice;
+            service.ServiceMessage = item.ServiceMessage;
+            service.EmployeeId = item.EmployeeId;
             await _context.SaveChangesAsync();
             return service;
         }

@@ -19,8 +19,8 @@ namespace ServicesAPI.Models.ViewModels
         public int? ResidentId { get; set; }
         public string EmployeeName { get; set; }
         public int? EmployeeRating { get; set; }
-
-
+        public string ResidentName { get; set; }
+        public int? ResidentHouseNo { get; set; }
 
     }
 }

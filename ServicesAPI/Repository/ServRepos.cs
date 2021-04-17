@@ -21,9 +21,27 @@ namespace ServicesAPI.Repository
             _context = context;
         }
 
-        public IEnumerable<Services> GetAllServices()
+        public IEnumerable<ServiceDetails> GetAllServices()
         {
-            return _context.Services.ToList();
+            List<Services> data = _context.Services.Include(x => x.Resident).ToList();
+
+            List<ServiceDetails> serviceDetailsList = new List<ServiceDetails>();
+            foreach (var ser in data)
+            {
+                ServiceDetails tempservicedetails = new ServiceDetails()
+                {
+                    ServiceId = ser.ServiceId,
+                    AppointmentTime = ser.AppointmentTime,
+                    ServiceMessage = ser.ServiceMessage,
+                    ServiceStatus = ser.ServiceStatus,
+                    ServicePrice = ser.ServicePrice,
+                    ServiceType = ser.ServiceType,
+                    ResidentHouseNo=ser.Resident.ResidentHouseNo,
+                    ResidentName=ser.Resident.ResidentName
+                };
+                serviceDetailsList.Add(tempservicedetails);
+            }
+            return serviceDetailsList;
         }
 
         public Services GetServiceByServiceId(int id)

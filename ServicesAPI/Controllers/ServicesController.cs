@@ -22,7 +22,7 @@ namespace ServicesAPI.Controllers
             _context = context; 
         }
         [HttpGet]
-        public IEnumerable<Services> GetAllServices()
+        public IEnumerable<ServiceDetails> GetAllServices()
         {
             _log4net.Info("Get All Services Was Called !!");
             return _context.GetAllServices();
@@ -101,6 +101,7 @@ namespace ServicesAPI.Controllers
         [HttpPost("EmployeeItem/{id}")]
         public async Task<IActionResult> UpdateServiceByEmployee(Services item, int id)
         {
+
             _log4net.Info("Update Service By Employee Was Called !!");
             if (!ModelState.IsValid)
             {

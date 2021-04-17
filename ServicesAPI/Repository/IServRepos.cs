@@ -9,7 +9,7 @@ namespace ServicesAPI.Repository
 {
     public interface IServRepos
     {
-        IEnumerable<Services> GetAllServices();
+        IEnumerable<ServiceDetails> GetAllServices();
         Services GetServiceByServiceId(int id);
         Task<Services> PostServices(Services item);
         Task<Services> UpdateServiceByResident(Services item, int id);

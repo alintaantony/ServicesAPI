@@ -16,5 +16,9 @@ namespace ServicesAPI.Repository
         Task<Services> UpdateServiceByEmployee(Services item, int id);
 
         IEnumerable<ServiceDetails> GetServiceByResidentId(int id);
+
+        Task<Services> UpdateServiceStatusByEmployee(Services item, int id);
+
+
     }
 }

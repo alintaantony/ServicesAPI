@@ -118,5 +118,27 @@ namespace ServicesAPI.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPost("ServiceStatus/{id}")]
+        public async Task<IActionResult> UpdateServiceStatusByEmployee(Services item, int id)
+        {
+
+            _log4net.Info("Update Service By Employee Was Called !!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var updateServiceByEmployee = await _context.UpdateServiceStatusByEmployee(item, id);
+                _log4net.Info("Update Service By Employee with Id " + id + " Was Called !!");
+                return Ok(updateServiceByEmployee);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

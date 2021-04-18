@@ -119,5 +119,14 @@ namespace ServicesAPI.Repository
             await _context.SaveChangesAsync();
             return service;
         }
+
+        public async Task<Services> UpdateServiceStatusByEmployee(Services item, int id)
+        {
+            Services service = await _context.Services.FindAsync(id);
+            service.ServiceStatus = item.ServiceStatus;
+            await _context.SaveChangesAsync();
+            return service;
+        }
+
     }
 }
